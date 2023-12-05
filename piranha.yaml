@@ -1,0 +1,42 @@
+# Global configuration settings for Piranha
+global:
+  excludePaths:
+    - "**/node_modules/**"
+    - "**/vendor/**"
+    - "**/.git/**"
+    - "**/.svn/**"
+    - "**/.hg/**"
+    - "**/.bzr/**"
+    - "**/__pycache__/**"
+    - "**/dist/**"
+    - "**/build/**"
+    - "**/.DS_Store"
+  instructionHeader: "Process the attached files and provide commentary on how they could be effectively refactored."
+  instructionFooter: "Please provide detailed explanations for each recommendation."
+  llmSettings:
+    temperature: 0.7
+    max_tokens: 256
+  responseFileFormat: "md"
+
+# Configuration for the chunking stage
+chunking:
+  - id: "all-files"
+    paths:
+      - "**"
+    excludePaths: []
+    divisibility: "CHUNK"
+    responseFileFormat: "txt"
+
+# Configuration for the execution stage
+execution:
+  concurrency: 1
+
+# Configuration for the extraction stage
+extraction:
+  savePrompts: true
+  promptsFolder: "./prompts"
+  saveResponses: true
+  responsesFolder: "./responses"
+  saveAggregateResponse: true
+  aggregateResponsePath: "./aggregate_responses.md"
+  aggregateResponseFileFormat: "md"
