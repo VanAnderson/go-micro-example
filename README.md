@@ -4,8 +4,7 @@
 ![Security](https://github.com/sksmith/note-server/actions/workflows/sec.yml/badge.svg)
 ![Test](https://github.com/sksmith/note-server/actions/workflows/test.yml/badge.svg)
 
-This sample project was created as a collection of the various things I've learned about best
-practices building microservices using Go. I structured the project using a hexagonal style abstracting
+This is an inventory management microservice for an online retailer. I structured the project using a hexagonal style abstracting
 away business logic from dependencies like the RESTful API, the Postgres database, and RabbitMQ message queue.
 
 ## Structure
