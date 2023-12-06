@@ -42,7 +42,7 @@ chunking:
       For files that contain code, I want you to examine each individual method, struct, interface, and config to come up with prompts that will demonstrate both conceptual knowledge of the code, as well as concrete knowledge about the implementation.
       Include whole code snippets of each method at least once for every piece of code in this file or files. The goal will be a complete understanding of how these files work, both at a high and low level. Every line of code should be accounted for. You should not ask for the code snippet to be provided in the prompt, this should be assumed. 
       Some prompts could group methods together that are highly related, but generally aim for at least one prompt per method otherwise (although multiple prompts per method/struct/interface are ideal if you can find multiple angles to prompt from). Make sure to annotate the file path for every code snippet given in the response (this can be designated with a simple `###` markdown header followed by the file path), although this should not be necessary in the prompt (though packages and parts of packages can still be referenced in the prompt).
-    responseFileFormat: "txt"
+    responseFileFormat: "jsonl"
   - id: "documentation-pass-single-file"
     paths:
       - "**/*.go"
@@ -54,48 +54,48 @@ chunking:
       **IF THE FILE OR FILES DO NOT CONTAIN A STRUCT OR INTERFACE OR INDIVIDUAL FUNCTION, YOU MAY OUTPUT A BLANK RESPONSE WITH NOTHING IN IT**
       
       ```
-        ## Struct Documentation
-      
-        ### `TypeName`
-      
-        **Description:**
-      
-        `TypeName` represents a ... It is used to ...
-      
-        **Fields:**
-      
-        - `FieldName`: The ... It is used for ...
-      
-        **Constructors:**
-      
-        #### `NewTypeName(param1 ParamType1, param2 ParamType2) *TypeName`
-      
-        Creates a new instance of `TypeName`. It initializes the struct with the given parameters.
-      
-        **Parameters:**
-      
-        - `param1` (ParamType1): The first parameter used for ...
-        - `param2` (ParamType2): The second parameter used for ...
-      
-        **Returns:**
-      
-        - A pointer to a newly allocated `TypeName` with fields initialized.
-      
-        **Methods:**
-      
-        #### `MethodName(param1 ParamType1, param2 ParamType2) (returnType, error)`
-      
-        Performs a specific operation on `TypeName`.
-      
-        **Parameters:**
-      
-        - `param1` (ParamType1): The first parameter used for ...
-        - `param2` (ParamType2): The second parameter used for ...
-      
-        **Returns:**
-      
-        - `returnType`: Description of the return value.
-        - `error`: Any error that occurred during the operation, or `nil` if no error occurred.
+      ## Struct Documentation
+    
+      ### `TypeName`
+    
+      **Description:**
+    
+      `TypeName` represents a ... It is used to ...
+    
+      **Fields:**
+    
+      - `FieldName`: The ... It is used for ...
+    
+      **Constructors:**
+    
+      #### `NewTypeName(param1 ParamType1, param2 ParamType2) *TypeName`
+    
+      Creates a new instance of `TypeName`. It initializes the struct with the given parameters.
+    
+      **Parameters:**
+    
+      - `param1` (ParamType1): The first parameter used for ...
+      - `param2` (ParamType2): The second parameter used for ...
+    
+      **Returns:**
+    
+      - A pointer to a newly allocated `TypeName` with fields initialized.
+    
+      **Methods:**
+    
+      #### `MethodName(param1 ParamType1, param2 ParamType2) (returnType, error)`
+    
+      Performs a specific operation on `TypeName`.
+    
+      **Parameters:**
+    
+      - `param1` (ParamType1): The first parameter used for ...
+      - `param2` (ParamType2): The second parameter used for ...
+    
+      **Returns:**
+    
+      - `returnType`: Description of the return value.
+      - `error`: Any error that occurred during the operation, or `nil` if no error occurred.
 
       ## Interface Documentation
       
@@ -177,7 +177,7 @@ chunking:
       
       - Additional notes or considerations regarding the function's behavior, side effects, or usage in certain contexts.
       ```
-    responseFileFormat: "txt"
+    responseFileFormat: "jsonl"
   - id: "hexagonal-architecture-example"
     paths:
       - "core/**/*.go"
@@ -190,7 +190,7 @@ chunking:
       You should be able to find many different angles to prompt from, and you should be able to generate many questions and answers from each angle.
       In particular, the interace of the core package and the db package should be a focus of the prompts, as well as the implementation of the core package. 
       The question and response pairs should crystalize aspects of hexagonal architecture and (importantly) how it's realized in this codebase.
-    responseFileFormat: "txt"
+    responseFileFormat: "jsonl"
   - id: "docker-setup"
     paths:
       - "Dockerfile"
@@ -203,7 +203,17 @@ chunking:
     instructionsHeader: |+
       For these files, I want you to generate a large list of extractive questions and answers that focus on the Docker setup.
       Examine these files with questions and responses that give perspectives on how the local setup is configured, how the Dockerfile is configured, and how the docker-compose.yml file is configured.
-    responseFileFormat: "txt"
+    responseFileFormat: "jsonl"
+  - id: "documentation-run"
+    paths:
+      - "**/*.md"
+    excludePaths: []
+    divisibility: "CHUNK"
+    llmSettings:
+      temperature: .6
+    instructionsHeader: |+
+      For these files, I want you to generate a large list of extractive questions and answers that focus on the conceptual understanding of the project listed in the markdown documentation.
+    responseFileFormat: "jsonl"
 instruction:
   - paths:
     - "**/*.go"
